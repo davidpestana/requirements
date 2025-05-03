@@ -1,3 +1,4 @@
+
 # Copyright (c) 2013 Hewlett-Packard Development Company, L.P.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +18,15 @@
 
 import setuptools.command
 import sys
-setattr(setuptools.command, "easy_install", type("easy_install", (), {"sys_executable": sys.executable}))
+
+class FakeEasyInstall:
+    sys_executable = sys.executable
+
+    @staticmethod
+    def get_script_header(script_text, executable):
+        return f"#!{executable}\n"
+
+setattr(setuptools.command, "easy_install", FakeEasyInstall)
 
 import setuptools
 
