@@ -14,6 +14,11 @@
 # limitations under the License.
 
 # THIS FILE IS MANAGED BY THE GLOBAL REQUIREMENTS REPO - DO NOT EDIT
+
+import setuptools.command
+import sys
+setattr(setuptools.command, "easy_install", type("easy_install", (), {"sys_executable": sys.executable}))
+
 import setuptools
 
 setuptools.setup(
